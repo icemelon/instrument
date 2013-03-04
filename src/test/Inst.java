@@ -1,3 +1,5 @@
+package test;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -63,6 +65,13 @@ public class Inst {
 		}
 	}
 	
+	private static class MethodVisitor extends VoidVisitorAdapter {
+		@Override
+		public void visit(MethodDeclaration n, Object arg) {
+			System.out.println(n.getName() + " " + n.getParameters());
+		}
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		FileInputStream in = new FileInputStream("input/Test.java");
@@ -105,12 +114,5 @@ public class Inst {
 				}
 			}
 		}*/
-	}
-	
-	private static class MethodVisitor extends VoidVisitorAdapter {
-		@Override
-		public void visit(MethodDeclaration n, Object arg) {
-			System.out.println(n.getName() + " " + n.getParameters());
-		}
 	}
 }
