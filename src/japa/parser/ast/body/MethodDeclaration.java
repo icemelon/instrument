@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 Júlio Vilmar Gesser.
+ * Copyright (C) 2007 Jï¿½lio Vilmar Gesser.
  * 
  * This file is part of Java 1.5 parser and Abstract Syntax Tree.
  *
@@ -118,6 +118,19 @@ public final class MethodDeclaration extends BodyDeclaration {
      */
     public int getModifiers() {
         return modifiers;
+    }
+    
+    // add by haichen
+    public String getMethodType() {
+    	String m = type.toString() + " " + name + "(";
+    	if (parameters != null && parameters.size() > 0) {
+    		m += parameters.get(0).getType().toString();
+    		for (int i = 1; i < parameters.size(); ++ i)
+    			m += ", " + parameters.get(i).getType().toString();
+    	}
+    	m += ")";
+    	
+    	return m;
     }
 
     public String getName() {

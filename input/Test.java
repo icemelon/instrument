@@ -3,7 +3,7 @@ import java.lang.management.ManagementFactory;
 public class Test {
 	
 	private Thread[] threadPool;
-	int x;
+	int x, y;
 	
 	/*public Test() {
 		
@@ -23,6 +23,18 @@ public class Test {
 			while (true) ;
 		}
 	}*/
+	
+	public Test() {
+		
+	}
+	
+	public A[] test() {
+		A a[] = new A[2];
+		a[0] = new A();
+		a[1] = new A();
+		return a;
+		//return "Test";
+	}
 	
 	private class A {
 		public String run() {

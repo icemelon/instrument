@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 Júlio Vilmar Gesser.
+ * Copyright (C) 2007 Jï¿½lio Vilmar Gesser.
  *
  * This file is part of Java 1.5 parser and Abstract Syntax Tree.
  *
@@ -40,6 +40,8 @@ public abstract class Node {
     private int endLine;
 
     private int endColumn;
+    
+    private boolean tainted; // add by haichen
 
     /**
      * This attribute can store additional information from semantic analysis.
@@ -47,6 +49,7 @@ public abstract class Node {
     private Object data;
 
     public Node() {
+    	tainted = false; // add by haichen
     }
 
     public Node(int beginLine, int beginColumn, int endLine, int endColumn) {
@@ -54,6 +57,17 @@ public abstract class Node {
         this.beginColumn = beginColumn;
         this.endLine = endLine;
         this.endColumn = endColumn;
+        tainted = false; // add by haichen
+    }
+    
+    // add by haichen
+    public boolean isTainted() {
+    	return tainted;
+    }
+    
+    // add by haichen
+    public void taint() {
+    	tainted = true;
     }
 
     /**
