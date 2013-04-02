@@ -154,7 +154,12 @@ public class Inst {
 		//System.out.println(cu.getTypes());
 		//List<TypeDeclaration> types = cu.getTypes();
 		types = cu.getTypes();
-		for (TypeDeclaration type: types) {
+		LookUpTable lut = new LookUpTable();
+		lut.setLookUpTable(types);
+		lut.dumpClassLut();
+		lut.dumpFieldLut();
+		lut.dumpMethodLut();
+		/*for (TypeDeclaration type: types) {
 			type.getClass().getName();
 			System.out.println(type.getClass().getName());
 			List<BodyDeclaration> members = type.getMembers();
@@ -171,17 +176,17 @@ public class Inst {
 					System.out.println("Method: " + ((MethodDeclaration)member).getMethodType());
 					System.out.println(((MethodDeclaration)member).toString());
 					
-					/*Type ret = ((MethodDeclaration) member).getType();
-					System.out.println(ret.getClass().getName());
+					//Type ret = ((MethodDeclaration) member).getType();
+					//System.out.println(ret.getClass().getName());
 					
-					if (ret instanceof ReferenceType) {
-						System.out.println(((ReferenceType) ret).getType().getClass().getName());
-						System.out.println(((ReferenceType) ret).getArrayCount());
-						ClassOrInterfaceType classType = (ClassOrInterfaceType) ((ReferenceType) ret).getType();
-						System.out.println(classType.getName());
-						System.out.println(classType.getScope());
-						System.out.println(classType.getTypeArgs());
-					}*/
+					//if (ret instanceof ReferenceType) {
+					//	System.out.println(((ReferenceType) ret).getType().getClass().getName());
+					//	System.out.println(((ReferenceType) ret).getArrayCount());
+					//	ClassOrInterfaceType classType = (ClassOrInterfaceType) ((ReferenceType) ret).getType();
+					//	System.out.println(classType.getName());
+					//	System.out.println(classType.getScope());
+					//	System.out.println(classType.getTypeArgs());
+					//}
 					//for (Parameter p: ((MethodDeclaration) member).getParameters()) {
 					//	System.out.println(p.get)
 				}
@@ -200,6 +205,6 @@ public class Inst {
 					System.out.println(((ClassOrInterfaceDeclaration) member).getImplements());
 				}
 			}
-		}
+		}*/
 	}
 }

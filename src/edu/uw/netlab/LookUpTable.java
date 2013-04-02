@@ -9,6 +9,7 @@ import japa.parser.ast.body.TypeDeclaration;
 import japa.parser.ast.body.VariableDeclarator;
 import japa.parser.ast.type.Type;
 
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,15 +24,25 @@ public class LookUpTable {
 			this.field = field;
 			this.scope = scope;
 		}
+		
+		@Override
+		public String toString() {
+			return scope + "." + field.getType().toString();
+		}
 	}
 	
 	class ExtendMethodDeclaration {
-		MethodDeclaration method;
-		String scope;
+		public MethodDeclaration method;
+		public String scope;
 		
 		public ExtendMethodDeclaration(MethodDeclaration method, String scope) {
 			this.method = method;
 			this.scope = scope;
+		}
+		
+		@Override
+		public String toString() {
+			return scope + "." + method.getName();
 		}
 	}
 	
@@ -100,6 +111,33 @@ public class LookUpTable {
 				addTypeDeclaration((ClassOrInterfaceDeclaration) typeDec, "");
 			else
 				System.out.println("error:" + typeDec.getClass().getName());
+		}
+	}
+	
+	public void dumpClassLut() {
+		Enumeration<String> keys = classLut.keys();
+		
+		while (keys.hasMoreElements()) {
+			String key = keys.nextElement();
+			System.out.println("(" + key + ", " + classLut.get(key).getName() + ")");
+		}
+	}
+	
+	public void dumpFieldLut() {
+		Enumeration<String> keys = fieldLut.keys();
+		
+		while (keys.hasMoreElements()) {
+			String key = keys.nextElement();
+			System.out.println("(" + key + ", " + fieldLut.get(key).toString() + ")");
+		}
+	}
+	
+	public void dumpMethodLut() {
+		Enumeration<String> keys = methodLut.keys();
+		
+		while (keys.hasMoreElements()) {
+			String key = keys.nextElement();
+			System.out.println("(" + key + ", " + methodLut.get(key).toString() + ")");
 		}
 	}
 }

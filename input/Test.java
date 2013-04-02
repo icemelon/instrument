@@ -41,6 +41,10 @@ public class Test {
 			int x = 0;
 			return new String(x);
 		}
+		
+		int aaa(int x, int y) {
+			return 0;
+		}
 	}
 	
 	private int aaa(int a, int b) {
