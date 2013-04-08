@@ -15,6 +15,12 @@ import japa.parser.ast.body.Parameter;
 import japa.parser.ast.body.TypeDeclaration;
 import japa.parser.ast.body.VariableDeclarator;
 import japa.parser.ast.body.VariableDeclaratorId;
+import japa.parser.ast.expr.BinaryExpr;
+import japa.parser.ast.expr.Expression;
+import japa.parser.ast.expr.VariableDeclarationExpr;
+import japa.parser.ast.stmt.BlockStmt;
+import japa.parser.ast.stmt.ExpressionStmt;
+import japa.parser.ast.stmt.Statement;
 import japa.parser.ast.type.ClassOrInterfaceType;
 import japa.parser.ast.type.PrimitiveType;
 import japa.parser.ast.type.ReferenceType;
@@ -131,34 +137,38 @@ public class Inst {
 		} finally {
 			in.close();
 		}
-		
-		//Inst.generateMethod("void foo(int x, int y)");
-		
-		/*List<Parameter> pList = new LinkedList<Parameter>();
-		pList.add(new Parameter(new PrimitiveType(PrimitiveType.Primitive.Int), new VariableDeclaratorId("x")));
-		pList.add(new Parameter(new PrimitiveType(PrimitiveType.Primitive.Int), new VariableDeclaratorId("y")));
-		
-		MethodDeclaration method = new MethodDeclaration(0, 
-					new PrimitiveType(PrimitiveType.Primitive.Int),
-					"aaa",
-					pList);
-		System.out.println(method.toString());*/
 	
 		List<TypeDeclaration> types;
 		
-		/*types = cu.getTypes();
-		for (TypeDeclaration type : types)
-			new Inst().SearchMethod(type, method);*/
-		
-		
-		//System.out.println(cu.getTypes());
-		//List<TypeDeclaration> types = cu.getTypes();
 		types = cu.getTypes();
 		LookUpTable lut = new LookUpTable();
 		lut.setLookUpTable(types);
-		lut.dumpClassLut();
-		lut.dumpFieldLut();
-		lut.dumpMethodLut();
+		//lut.dumpClassLut();
+		//lut.dumpFieldLut();
+		//System.out.println("METHODS:");
+		//lut.dumpMethodLut();
+		
+		List<LookUpTable.ExtendMethodDeclaration> methods = lut.getMethodList("int src(int)");
+		//System.out.println(methods.toString());
+		LookUpTable.ExtendMethodDeclaration method = methods.get(0);
+		List<Statement> smList = method.method.getBody().getStmts();
+		
+		for (Statement sm : smList) {
+			System.out.println(sm.toString());
+			if (sm instanceof ExpressionStmt) {
+				Expression expr = ((ExpressionStmt) sm).getExpression();
+				System.out.println(expr.getClass().getName());
+				if (expr instanceof BinaryExpr) {
+					System.out.println(((BinaryExpr) expr).getLeft());
+					System.out.println(((BinaryExpr) expr).getRight());
+				} else if (expr instanceof VariableDeclarationExpr) {
+					System.out.println(((VariableDeclarationExpr) expr).getVars());
+				}
+			}
+		}
+		
+		
+		
 		/*for (TypeDeclaration type: types) {
 			type.getClass().getName();
 			System.out.println(type.getClass().getName());

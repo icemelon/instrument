@@ -51,6 +51,11 @@ public class Test {
 		return (a + b);
 	}
 	
+	public int src(int x) {
+		int y = x + 1;
+		return y;
+	}
+	
 	public static void main(String[] args) {
 		new Test();
 	}

@@ -84,7 +84,7 @@ public class LookUpTable {
 		}
 	}
 	
-	private void addTypeDeclaration(ClassOrInterfaceDeclaration typeDec, String scope) {
+	private void addClass(ClassOrInterfaceDeclaration typeDec, String scope) {
 		
 		String className = (scope == "") ? typeDec.getName() : scope + "." + typeDec.getName();
 		
@@ -96,7 +96,7 @@ public class LookUpTable {
 		List<BodyDeclaration> members = typeDec.getMembers();
 		for (BodyDeclaration member : members) {
 			if (member instanceof ClassOrInterfaceDeclaration)
-				addTypeDeclaration((ClassOrInterfaceDeclaration) member, className);
+				addClass((ClassOrInterfaceDeclaration) member, className);
 			else if (member instanceof FieldDeclaration) {
 				addField((FieldDeclaration) member, className);
 			} else if (member instanceof MethodDeclaration) {
@@ -108,7 +108,7 @@ public class LookUpTable {
 	public void setLookUpTable(List<TypeDeclaration> typeDecList) {
 		for (TypeDeclaration typeDec : typeDecList) {
 			if (typeDec instanceof ClassOrInterfaceDeclaration)
-				addTypeDeclaration((ClassOrInterfaceDeclaration) typeDec, "");
+				addClass((ClassOrInterfaceDeclaration) typeDec, "");
 			else
 				System.out.println("error:" + typeDec.getClass().getName());
 		}
@@ -139,5 +139,17 @@ public class LookUpTable {
 			String key = keys.nextElement();
 			System.out.println("(" + key + ", " + methodLut.get(key).toString() + ")");
 		}
+	}
+	
+	public ClassOrInterfaceDeclaration getClass(String className) {
+		return classLut.get(className);
+	}
+	
+	public List<ExtendFieldDeclaration> getFieldList(String fieldName) {
+		return fieldLut.get(fieldName);
+	}
+	
+	public List<ExtendMethodDeclaration> getMethodList(String methodName) {
+		return methodLut.get(methodName);
 	}
 }
